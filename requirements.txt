@@ -1,0 +1,17 @@
+# Web Framework
+Flask==2.3.3
+flask-cors==4.0.0
+
+# Firebase Integration
+firebase-admin==6.5.0
+
+# Computer Vision & Pose Detection
+opencv-python==4.9.0.80
+mediapipe==0.10.3
+numpy==1.24.4
+
+# Templating (comes with Flask, but useful to explicitly include Jinja2)
+Jinja2==3.1.3
+
+# Additional utilities (if any Firebase or video logic requires it)
+requests==2.31.0
