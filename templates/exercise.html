@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ exercise.replace('_', ' ').capitalize() }} Tracking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Extra inline style for the log form fields layout */
+        .log-fields-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 1em;
+        }
+        .log-fields-row label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+            width: 200px; /* Match .start-exercise-btn width */
+        }
+        .log-fields-row input[type="number"] {
+            width: 200px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid #ff6600;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 8px;
+        }
+        @media (max-width: 600px) {
+            .log-fields-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .log-fields-row label, .log-fields-row input[type="number"] {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">PoseFit AI</div>
+    <nav>
+        <a href="/">Home</a>
+        <button class="logout">Logout</button>
+    </nav>
+</header>
+
+<main class="exercise-container">
+    <h1>{{ exercise.replace('_', ' ').capitalize() }} Tracking</h1>
+    
+    <!-- Buttons Row, only visible before tracking -->
+    <div class="exercise-buttons" id="topButtons">
+        <button id="start-tracking" class="start-btn">Start Tracking</button>
+        <button id="reset-count" class="reset-btn">Reset Count</button>
+    </div>
+
+    <!-- Tracking Section (hidden by default) -->
+    <div class="tracking-section" id="trackingSection" style="display:none;">
+        <img id="tracking-video" src="" alt="Live Exercise Tracking" style="display:block;">
+        <div class="exercise-buttons" id="trackingButtons">
+            <button id="stop-log" class="start-btn">Stop & Log Session</button>
+            <button id="reset-count-tracking" class="reset-btn">Reset Count</button>
+        </div>
+    </div>
+
+    <!-- Log Form (hidden by default) -->
+    <div id="logForm" style="display:none; text-align:center;">
+        <h3>Log Your {{ exercise.replace('_', ' ').capitalize() }} Session</h3>
+        <!-- Labels Row -->
+        <div class="log-fields-row">
+            <label>
+                Reps
+                <input type="number" id="reps" name="reps" min="1" required>
+            </label>
+            <label>
+                Sets
+                <input type="number" id="sets" name="sets" min="1" required>
+            </label>
+        </div>
+        <form id="exerciseForm" autocomplete="off">
+            <button class="start-exercise-btn" id="saveBtn" type="submit">Save to Firebase</button>
+        </form>
+        <div id="saveStatus" style="margin-top:1em;"></div>
+    </div>
+
+    <!-- Description & YouTube Video Section (always visible) -->
+    <div class="exercise-details">
+        <div class="exercise-description">
+            <p>
+                {% if exercise == 'bicep_curl' %}
+                    <strong>Bicep curls strengthen your upper arms by targeting the biceps.</strong>
+                    <ul>
+                        <li>Hold a dumbbell in each hand, palms facing forward.</li>
+                        <li>Keep your elbows close to your torso.</li>
+                        <li>Curl the dumbbells up towards your shoulders.</li>
+                        <li>Lower them slowly to the starting position.</li>
+                    </ul>
+                {% elif exercise == 'lateral_raise' %}
+                    <strong>Lateral raises target your shoulder muscles, improving arm strength.</strong>
+                    <ul>
+                        <li>Hold a dumbbell in each hand at your sides.</li>
+                        <li>Keep a slight bend in your elbows.</li>
+                        <li>Raise your arms to shoulder height.</li>
+                        <li>Slowly lower back to the starting position.</li>
+                    </ul>
+                {% elif exercise == 'plank' %}
+                    <strong>Planks strengthen your core, helping with stability and endurance.</strong>
+                    <ul>
+                        <li>Get into a forearm or high plank position.</li>
+                        <li>Keep your body in a straight line.</li>
+                        <li>Engage your core and avoid sagging hips.</li>
+                        <li>Hold for the desired duration.</li>
+                    </ul>
+                {% elif exercise == 'pushups' %}
+                    <strong>Pushups work your chest, shoulders, and arms, improving overall upper body strength.</strong>
+                    <ul>
+                        <li>Start in a high plank position.</li>
+                        <li>Lower your body until your chest is near the ground.</li>
+                        <li>Keep your elbows at a 45-degree angle.</li>
+                        <li>Push back up to the starting position.</li>
+                    </ul>
+                {% elif exercise == 'shoulder_press' %}
+                    <strong>Shoulder presses help develop strong shoulders and upper arms.</strong>
+                    <ul>
+                        <li>Hold dumbbells at shoulder height, palms facing forward.</li>
+                        <li>Press the weights straight up above your head.</li>
+                        <li>Fully extend your arms without locking elbows.</li>
+                        <li>Lower the dumbbells back to the starting position.</li>
+                    </ul>
+                {% elif exercise == 'squat' %}
+                    <strong>Squats strengthen your legs, glutes, and improve balance.</strong>
+                    <ul>
+                        <li>Stand with feet shoulder-width apart.</li>
+                        <li>Lower your hips until your thighs are parallel to the ground.</li>
+                        <li>Keep your chest up and back straight.</li>
+                        <li>Push through your heels to return to standing.</li>
+                    </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="video-section">
+            <iframe id="exercise-video" 
+                src="https://www.youtube.com/embed/{{ youtube_video_id }}" 
+                title="Exercise Tutorial" frameborder="0" allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</main>
+
+<script>
+let countInterval = null;
+
+// Show tracking section and hide top buttons
+document.getElementById("start-tracking").addEventListener("click", function() {
+    document.getElementById("topButtons").style.display = "none";
+    document.getElementById("trackingSection").style.display = "block";
+    let trackingVideo = document.getElementById("tracking-video");
+    trackingVideo.src = "{{ url_for('video_feed', exercise=exercise) }}";
+    countInterval = setInterval(function() {
+        fetch("/get_count/{{ exercise }}")
+            .then(response => response.json())
+            .then(data => {
+                // You can display the count elsewhere if needed
+            });
+    }, 1000);
+});
+
+// Reset Count (top)
+document.getElementById("reset-count").addEventListener("click", function() {
+    fetch("/reset_count/{{ exercise }}", { method: "POST" })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => console.error("Error:", error));
+});
+
+// Reset Count (during tracking)
+document.getElementById("reset-count-tracking").addEventListener("click", function() {
+    fetch("/reset_count/{{ exercise }}", { method: "POST" })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => console.error("Error:", error));
+});
+
+// Stop & Log Session
+document.getElementById("stop-log").addEventListener("click", function() {
+    clearInterval(countInterval);
+    document.getElementById("tracking-video").src = "";
+    document.getElementById("trackingSection").style.display = "none";
+    document.getElementById("logForm").style.display = "block";
+});
+
+// Save to Firebase
+document.getElementById("exerciseForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const sets = document.getElementById('sets').value;
+    const reps = document.getElementById('reps').value;
+
+    fetch('/save_exercise/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            user_id: 'user123',  // Replace with actual user logic
+            exercise_name: '{{ exercise }}',
+            reps: parseInt(reps),
+            count: parseInt(sets)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('saveStatus').innerText = data.message;
+        if (data.success) {
+            document.getElementById('exerciseForm').reset();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+    })
+    .catch(error => {
+        document.getElementById('saveStatus').innerText = 'Error saving exercise.';
+    });
+});
+</script>
+
+</body>
+</html>

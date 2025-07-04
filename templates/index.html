@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoseFit AI - Exercises</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="logo">PoseFit AI</div>
+    <nav>
+        <a href="#">Profile</a> <!-- ✅ Ensure "Profile" is a proper <a> tag -->
+        <button class="logout">Logout</button>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>WORKOUT <br> WITH <span class="highlight">AI</span></h1>
+        <p>Unleash Your Inner Strength: Elevate Your Fitness Journey with AI Powered Pose Perfection!</p>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='fitness-model.png') }}" alt="Athlete exercising">
+        
+    </div>
+</section>
+
+
+
+
+<main>
+    <div class="banner"></div>
+
+    <section class="exercise-container">
+        <h1>Exercises</h1>
+        <p>Choose the exercise you want to train yourself on</p>
+
+        <!-- Exercise Cards -->
+        <div class="exercise-list">
+            <!-- Plank Exercise -->
+            <div class="exercise-card">
+                <div class="exercise-text">
+                    <h2>PLANK EXERCISE</h2>
+                    <p>The plank is an isometric core strength exercise.</p>
+                    <a href="/exercise/plank" class="start-exercise-btn">Start Exercise</a>
+                </div>
+                <div class="exercise-image">
+                    <img src="{{ url_for('static', filename='plank.gif') }}" alt="Plank Exercise">
+                </div>
+            </div>
+
+            <!-- Squat Exercise -->
+            <div class="exercise-card">
+                <div class="exercise-text">
+                    <h2>SQUAT EXERCISE</h2>
+                    <p>The squat is a fundamental strength training exercise.</p>
+                    <a href="/exercise/squat" class="start-exercise-btn">Start Exercise</a>
+                </div>
+                <div class="exercise-image">
+                    <img src="{{ url_for('static', filename='squat.gif') }}" alt="Squat Exercise">
+                </div>
+            </div>
+
+            <!-- Bicep Curl -->
+            <div class="exercise-card">
+                <div class="exercise-text">
+                    <h2>BICEP CURL</h2>
+                    <p>Bicep curls help build arm strength and muscle definition.</p>
+                    <a href="/exercise/bicep_curl" class="start-exercise-btn">Start Exercise</a>
+                </div>
+                <div class="exercise-image">
+                    <img src="{{ url_for('static', filename='bicep_curl.gif') }}" alt="Bicep Curl">
+                </div>
+            </div>
+
+            <!-- Push-Ups -->
+            <div class="exercise-card">
+                <div class="exercise-text">
+                    <h2>PUSH-UPS</h2>
+                    <p>Push-ups are a basic yet effective upper body strength exercise.</p>
+                    <a href="/exercise/pushups" class="start-exercise-btn">Start Exercise</a>
+                </div>
+                <div class="exercise-image">
+                    <img src="{{ url_for('static', filename='pushups.gif') }}" alt="Push-Ups">
+                </div>
+            </div>
+
+            <!-- Shoulder Press -->
+            <div class="exercise-card">
+                <div class="exercise-text">
+                    <h2>SHOULDER PRESS</h2>
+                    <p>The shoulder press targets the deltoid muscles.</p>
+                    <a href="/exercise/shoulder_press" class="start-exercise-btn">Start Exercise</a>
+                </div>
+                <div class="exercise-image">
+                    <img src="{{ url_for('static', filename='shoulder_press.gif') }}" alt="Shoulder Press">
+                </div>
+            </div>
+
+            <!-- Lateral Raise -->
+            <div class="exercise-card">
+                <div class="exercise-text">
+                    <h2>LATERAL RAISE</h2>
+                    <p>Lateral raises help build shoulder muscle definition.</p>
+                    <a href="/exercise/lateral_raise" class="start-exercise-btn">Start Exercise</a>
+                </div>
+                <div class="exercise-image">
+                    <img src="{{ url_for('static', filename='lateral_raise.gif') }}" alt="Lateral Raise">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Dialogflow Messenger -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  chat-title="FitnessBot"
+  agent-id="30bf6b79-ac0c-42fa-9967-423c9b770280"
+  language-code="en"
+></df-messenger>
+
+</body>
+</html>

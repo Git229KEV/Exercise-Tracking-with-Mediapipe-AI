@@ -1,0 +1,353 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #ff6600;
+    --secondary-color: #f4f4f4;
+    --text-dark: #333;
+    --text-light: #666;
+    --border-radius: 12px;
+    --shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: rgb(45, 44, 44);
+    color: var(--text-dark);
+}
+
+/* ---------------- HEADER ---------------- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgb(45, 44, 44);
+    box-shadow: var(--shadow);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Logout Button */
+.logout {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s ease-in-out;
+}
+
+.logout:hover {
+    background: #e65c00;
+    transform: scale(1.1);
+}
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ff6600; /* Orange Background */
+    color: black;
+    height: 85vh; /* Adjusted for a full hero effect */
+    padding: 50px 80px;
+    position: relative;
+}
+
+/* Left Side Text */
+.hero-text {
+    flex: 1;
+    text-align: left;
+}
+
+/* Main Heading */
+.hero h1 {
+    font-size: 90px; /* Matches reference */
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+/* Highlighted "AI" */
+.hero .highlight {
+    color: white;
+}
+
+/* Subtext */
+.hero p {
+    font-size: 25px;
+    font-weight: 500;
+    color: white;
+    max-width: 600px;
+}
+
+/* Right Side Image */
+.hero-image {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.hero-image img {
+    width: 750px;
+    height: 720px;
+}
+
+
+
+/* ---------------- MAIN CONTENT ---------------- */
+main {
+    padding: 30px 60px;
+}
+
+/* Top Section */
+.exercise-container {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.exercise-container h1 {
+    font-size: 36px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.exercise-container p {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Orange Top Banner */
+.exercise-container::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 80px;
+    background: var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* ---------------- EXERCISE CARDS ---------------- */
+.exercise-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.exercise-text {
+    text-align: left;
+}
+
+.exercise-text h2 {
+    font-size: 20px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.exercise-text p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-top: 5px;
+}
+
+/* New Class for "Start Exercise" Button */
+.start-exercise-btn {
+    display: inline-block;
+    width: 200px; /* Adjust width to match the image */
+    height: 50px; /* Adjust height to match */
+    background: linear-gradient(to right, #f15a24, #ff7e4d); /* Gradient Background */
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    line-height: 50px; /* Center text vertically */
+    text-decoration: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect */
+.start-exercise-btn:hover {
+    background: linear-gradient(to right, #d14e20, #ff5c2e);
+    transform: scale(1.05);
+}
+
+/* Exercise Image */
+.exercise-image img {
+    max-width: 150px;
+    height: auto;
+}
+
+/* ---------------- LIVE CAMERA SECTION ---------------- */
+.tracking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Bigger Camera - Centered */
+.tracking-section {
+    width: 100%;
+    max-width: 900px; /* Increased size */
+    text-align: center;
+    position: relative;
+}
+
+.tracking-section img {
+    width: 100%;
+    height: 500px; /* Bigger Camera */
+    border-radius: var(--border-radius);
+    border: 3px solid var(--primary-color);
+    box-shadow: var(--shadow);
+    display: none;
+}
+
+/* Counter Text - White */
+.counter-text {
+    color: white !important;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Buttons Below Camera - Centered */
+.exercise-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Standard Button Style */
+.start-btn, .reset-btn {
+    width: 220px;
+    height: 55px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover Effect */
+.start-btn:hover, .reset-btn:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+
+/* ---------------- EXERCISE DETAILS (Description & Video) ---------------- */
+.exercise-details {
+    display: flex;
+    justify-content: space-between; /* Aligns text and video side by side */
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 1200px; /* Ensures proper spacing */
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* Exercise Description - Left Side */
+.exercise-description {
+    width: 50%;
+    font-size: 18px;
+    color: white;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* YouTube Video - Right Side */
+.video-section {
+    width: 50%;
+    text-align: center;
+}
+
+.video-section iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: var(--border-radius);
+}
+
+/* ---------------- RESPONSIVE DESIGN ---------------- */
+@media (max-width: 768px) {
+    .exercise-details {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .exercise-description, .video-section {
+        width: 100%;
+    }
+}
+
+
+
+
+
