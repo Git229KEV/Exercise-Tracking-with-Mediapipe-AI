@@ -5,6 +5,9 @@ Logic of motion tracking varies according to the exercise and updated accordingl
 After You click any of the exercise, Click on **Start Tracking**.
 Camera will open, Counter and Stage will be shown in the camera.
 If you want to Reset the count, click on **Reset Count**
+
+You can visit the website here : https://posefit-ai.netlify.app/ 
+
 ![image](https://github.com/user-attachments/assets/bca45f42-c50e-4ff8-ad81-66db492a45b1)
 
 ![image](https://github.com/user-attachments/assets/89b28eae-8a90-4ab1-91a2-190dd7f29aa5)
@@ -75,11 +78,7 @@ After doing the exercise click on the Stop & Log Session, and enter the Reps and
 
 ![image](https://github.com/user-attachments/assets/452e40fd-2302-4fc8-993f-671f4f4ab70c)
 
-# Usage
-Install **Visual studio Code**
 
-Then in the VS Code terminal:
--pip install requirements.txt
 
 Then,
 run -python app.py
